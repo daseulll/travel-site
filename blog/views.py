@@ -1,14 +1,12 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
+from .models import Post
 
 # Create your views here.
 def index(request):
     ctx ={}
-    return render(request, "index.html", ctx)
-
-def signin(request):
-    ctx={}
-    return render(request,"signin.html", ctx)
+    return render(request, "blog/index.html", ctx)
 
 def signup(request):
     ctx={}
@@ -26,4 +24,35 @@ def signup(request):
         else:
             user = User.objects.create_user(username, email, password)
             ctx.update({"complete" : "회원가입이 완료되었습니다."})
-    return render(request, "signup.html", ctx)
+
+    return render(request, "blog/signup.html", ctx)
+
+def signin(request):
+    ctx={}
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            ctx.update({"fail" : "가입되어 있지 않거나 비밀번호가 틀렸습니다."})
+    return render(request,"blog/signin.html", ctx)
+
+def signout(request):
+    logout(request)
+    return redirect ('/')
+
+def post_list(request):
+    if request.method == "GET":
+        posts = Post.objects.filter(author=request.user)
+
+    return render(request, "blog/post_list.html", {'posts':posts})
+
+def post_detail(request, post_id):
+    if request.method == "GET":
+        posts = Post.objects.filter(id=post_id)
+
+    return render(request, "blog/post_detail.html", {'posts':posts})
