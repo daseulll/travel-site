@@ -32,8 +32,8 @@
       <a class="p-2 text-muted" href="#"></a>
       <a class="p-2 text-muted" href="#"></a>
       <a class="p-2 text-muted" href="#">내 정보</a>
-      <a class="p-2 text-muted" href="post_list/">내 글보기</a>
-      <a class="p-2 text-muted text-dark " href="#"><i class="fas fa-plus"></i></a>
+      <a class="p-2 text-muted" href="{% url 'post_list' %}">내 글보기</a>
+      <a class="p-2 text-muted text-dark " href="{% url 'post_new' %}"><i class="fas fa-plus"></i></a>
     </nav>
   </div>
   {% endif %}

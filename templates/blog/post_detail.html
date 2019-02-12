@@ -1,14 +1,16 @@
 {% extends "base.html" %}
-{% block title %}index{% endblock %}
 {% block body %}
 {% include "navbar.html" %}
 
 <div class="">
-  {% for post in posts %}
     <h2 class="content text-center">{{ post.title }}</h2>
     <p class="content">{{ post.text|linebreaksbr }}</p>
     <p class="content date">{{ post.published_date }}</p>
-  {% endfor %}
+    {% if user.is_authenticated %}
+    <a class="btn btn-default content text-center" href="{% url 'post_edit' post.id %}">
+      <span class="glyphicon glyphicon-pencil">수정하기</span>
+    </a>
+    {% endif %}
 </div>
 
 {% endblock %}

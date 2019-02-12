@@ -1,0 +1,8 @@
+secret.json
+*.pyc
+*~
+__pycache__
+travel_/
+db.sqlite3
+/static
+.DS_Store
