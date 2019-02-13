@@ -11,11 +11,12 @@
         <a class="text-muted" href="#">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3" focusable="false" role="img"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg>
         </a>
-        {% if user.is_anonymous %}
-        <a class="btn btn-sm btn-outline-secondary" href="/signin/">로그인</a>
-        {% endif %}
         {% if user.is_authenticated %}
-        <a class="btn btn-sm btn-outline-secondary" href="/signout/">로그아웃</a>
+        <p class="top-menu">hello, {{ user.username }}
+          <small>(<a href="{% url 'signout' %}">Log out</a>)</small>
+        </p>
+        {% else %}
+        <a class="btn btn-sm btn-outline-secondary" href="/signin/">로그인</a>
         {% endif %}
       </div>
     </div>
@@ -33,7 +34,9 @@
       <a class="p-2 text-muted" href="#"></a>
       <a class="p-2 text-muted" href="#">내 정보</a>
       <a class="p-2 text-muted" href="{% url 'post_list' %}">내 글보기</a>
-      <a class="p-2 text-muted text-dark " href="{% url 'post_new' %}"><i class="fas fa-plus"></i></a>
+      <a class="p-2 text-muted text-dark " href="{% url 'post_new' %}">
+        <i class="fas fa-plus"></i>
+      </a>
     </nav>
   </div>
   {% endif %}
