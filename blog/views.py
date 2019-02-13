@@ -122,3 +122,15 @@ def add_comment_to_post(request, post_id):
         form = CommentForm()
 
     return render(request, "blog/add_comment_to_post.html", {"form":form})
+
+@login_required
+def comment_approve(request, comment_id):
+    comment = Comment.objects.get(pk=comment_id)
+    comment.approve()
+    return redirect('post_detail', comment.post.id)
+
+@login_required
+def comment_remove(request, comment_id):
+    comment = Comment.objects.get(pk=comment_id)
+    comment.delete()
+    return redirect('post_detail', comment.post.id)

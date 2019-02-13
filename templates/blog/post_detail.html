@@ -22,11 +22,19 @@
 </div>
 
 {% for comment in post.comments.all %}
-  <div class="comment">
-    <div class="date">{{ comment.created_date }}</div>
-    <strong>{{ comment.author }}</strong>
-    <p>{{ comment.text|linebreaks }}</p>
-  </div>
+  {% if user.is_authenticated or comment.approved_comment %}
+    <div class="comment">
+      <div class="date">{{ comment.created_date }}</div>
+        {% if not comment.approved_comment %}
+          <a class="btn btn-default" href="{% url 'comment_approve' comment.id %}">
+            <span class="glyphicon glyphicon-remove">댓글승인</span></a>
+        {% endif %}
+        <a class="btn btn-default" href="{% url 'comment_remove' comment.id %}">
+          <span class="glyphicon glyphicon-ok">삭제</span></a>
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+  {% endif %}
 {% empty %}
   <p>댓글이 아직 없습니다.</p>
 {% endfor %}

@@ -6,7 +6,7 @@
       {% for post in posts %}
         {% if post.published_date %}
           <h2><a href="{% url 'post_detail' post.id %}">
-            {{ post.title }}<small> (댓글:{{ post.comments.count }})</small>
+            {{ post.title }}<small> (댓글:{{ post.approved_comments.count }})</small>
           </a></h2>
           <p class="date">{{ post.published_date }}</p>
         {% else %}
@@ -18,7 +18,7 @@
       {% endfor %}
       {% for posts in draft_posts %}
         <h2><a href="{% url 'post_detail' post.id %}">
-          {{ posts.title }} (댓글:{{ post.comments.count }})
+          {{ posts.title }} (댓글:{{ post.approved_comments.count }})
         </a></h2>
         <a class="btn btn-default" href="{% url 'post_publish' post.id %}">
           발
