@@ -3,14 +3,22 @@
 {% include "navbar.html" %}
 
 <div class="">
-    <h2 class="content text-center">{{ post.title }}</h2>
-    <p class="content">{{ post.text|linebreaksbr }}</p>
+  <h2 class="content text-center">{{ post.title }}</h2>
+  <p class="content">{{ post.text|linebreaksbr }}</p>
+  {% if post.published_date %}
     <p class="content date">{{ post.published_date }}</p>
-    {% if user.is_authenticated %}
-    <a class="btn btn-default content text-center" href="{% url 'post_edit' post.id %}">
-      <span class="glyphicon glyphicon-pencil">수정하기</span>
-    </a>
-    {% endif %}
+  {% else %}
+    <a class="btn btn-default" href="{% url 'post_publish' post.id %}">발행</a>
+  {% endif %}
+
+  {% if user.is_authenticated %}
+  <a class="btn btn-default content text-center" href="{% url 'post_edit' post.id %}">
+    <span class="glyphicon glyphicon-pencil">수정하기</span>
+  </a>
+  {% endif %}
+  <a class="btn btn-default" href="{% url 'post_delete' post.id %}">
+    <span class="glyphicon glyphicon-remove">삭제하기</span>
+  </a>
 </div>
 
 {% endblock %}

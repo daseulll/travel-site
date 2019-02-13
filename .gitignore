@@ -4,5 +4,4 @@ secret.json
 __pycache__
 travel_/
 db.sqlite3
-/static
 .DS_Store
