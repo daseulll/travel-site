@@ -22,11 +22,13 @@ BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
+DEBUG = True
+ALLOWED_HOSTS = []
 
 SECRET_KEY = "nsz2*_ikya$q&tr&=il^81p%(fpl4yu$!00=3p_r70*!xg3$o4"
 
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
