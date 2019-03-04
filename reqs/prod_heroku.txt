@@ -1,0 +1,6 @@
+-r common.txt
+
+django-heroku
+whitenoise
+gunicorn
+psycopg2

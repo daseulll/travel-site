@@ -9,8 +9,10 @@ from .forms import PostForm, CommentForm
 URL_LOGIN = "/signin/"
 # Create your views here.
 def index(request):
-    ctx ={}
-    return render(request, "blog/index.html", ctx)
+    if request.method == "GET":
+        posts = Post.objects.all()
+    return render(request, "blog/index.html", {"posts" : posts})
+
 
 def signup(request):
     ctx={}
@@ -36,8 +38,8 @@ def signin(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
+        # print(username, password)
         user = authenticate(username=username, password=password)
-
         if user is not None:
             login(request, user)
             return redirect('/')
