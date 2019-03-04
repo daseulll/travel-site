@@ -14,7 +14,15 @@
         여행을 기록하세요.<br>
         더 많은 것을 보고 느끼고 추억하게 되실거에요.<br>
       </p>
-  </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-7">
+          {% for post in posts  %}
+          <a href="{% url 'post_detail' post.id %}"><div>{{ post.title }}</div></a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
