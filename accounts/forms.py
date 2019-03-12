@@ -19,8 +19,7 @@ class SignupForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = user.username
-        if commit:
-            user.save()
+        user.save()
         return user
 
     class Meta:

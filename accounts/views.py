@@ -11,16 +11,16 @@ def signup(request):
         form = SignupForm(request.POST)
         
         if form.is_valid():
-            user = form.save(commit=False)
-            user.email = user.username
+            user = form.save()
             user.save()
-            return redirect('signin')
+            login(request, user)
+            return redirect('root')
         
     else: 
         form = SignupForm()
 
     return render(request, "accounts/signup.html", {
-        "form" : form
+        "form" : form,
     })
 
 def signin(request):
