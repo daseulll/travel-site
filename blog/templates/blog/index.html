@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col-12 col-md-7">
           {% for post in posts  %}
-          <a href="{% url 'blog:post_detail' post.id %}"><div>{{ post.title }}</div></a>
+          <a href="{% url 'blog:post_detail' post.pk %}"><div>{{ post.title }}</div></a>
           {% endfor %}
         </div>
       </div>

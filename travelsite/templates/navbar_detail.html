@@ -16,7 +16,7 @@
           <small>(<a href="{% url 'signout' %}">Logout</a>)</small>
         </span>
         {% else %}
-        <a class="btn btn-sm btn-outline-secondary" href="/signin/">로그인</a>
+        <a class="btn btn-sm btn-outline-secondary" href="{% url 'signin' %}">로그인</a>
         {% endif %}
       </div>
     </div>
