@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import Post, Comment
-from .forms import PostForm, CommentForm
+from .forms import SignupForm, PostForm, CommentForm
 
 LOGIN_URL = "/signin/"
 # Create your views here.
@@ -15,23 +15,33 @@ def index(request):
 
 
 def signup(request):
-    ctx={}
-    if request.method == "GET":
-        pass
-    elif request.method == "POST":
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        # print(username, email, password)
-        if User.objects.filter(username=username).exists():
-            ctx.update({"exist" : "사용중인 아이디입니다."})
-        elif User.objects.filter(email=email).exists():
-            ctx.update({"e_exist" : "이미 가입하신 이메일입니다."})
-        else:
-            user = User.objects.create_user(username, email, password)
-            ctx.update({"complete" : "회원가입이 완료되었습니다."})
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.email = user.username
+            user.save()
+            return redirect('/login/')
+        
+    else: 
+        form = SignupForm()
 
-    return render(request, "blog/signup.html", ctx)
+    return render(request, "blog/signup.html", {
+        "form" : form
+    })
+    #     username = request.POST.get('username')
+    #     email = request.POST.get('email')
+    #     password = request.POST.get('password')
+    #     # print(username, email, password)
+    #     if User.objects.filter(username=username).exists():
+    #         ctx.update({"exist" : "사용중인 아이디입니다."})
+    #     elif User.objects.filter(email=email).exists():
+    #         ctx.update({"e_exist" : "이미 가입하신 이메일입니다."})
+    #     else:
+    #         user = User.objects.create_user(username, email, password)
+    #         ctx.update({"complete" : "회원가입이 완료되었습니다."})
+
 
 def signin(request):
     ctx={}
