@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "navbar.html" %}
+    
+<div class="post">
+    <h1>임시저장글</h1>
+
+    {% for post in draft_posts %}
+        <h2><a href="{% url 'blog:post_detail' post.pk %}">
+            {{ post.title }}<small> (댓글:{{ post.approved_comments.count }})</small>
+        </a></h2>
+    {% endfor %}        
+
+</div>
+
+{% endblock %}
