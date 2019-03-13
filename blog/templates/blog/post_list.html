@@ -2,18 +2,23 @@
 {% block body %}
 {% include "navbar.html" %}
   <div class="post">
-    <h1>나의 게시글</h1>
+    <h1 class="blog-header">나의 게시글</h1>
       {% for post in posts %}
         {% if post.published_date %}
-          <h2><a href="{% url 'blog:post_detail' post.pk %}">
+          <h3><a href="{% url 'blog:post_detail' post.pk %}">
             {{ post.title }}<small> (댓글:{{ post.approved_comments.count }})</small>
-          </a></h2>
+          </a></h3>
           <p class="date">{{ post.published_date }}</p>
         {% else %}
-          <h2><a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a></h2>
-          <a class="btn btn-default" href="{% url 'blog:post_publish' post.pk %}">
-            발행
-          </a>
+        <div class="post">
+          <h2>임시저장 글</h2>
+          <div>
+            <a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a>
+            <a class="btn btn-default" href="{% url 'blog:post_publish' post.pk %}">
+              발행
+            </a>
+          </div>
+        </div>
         {% endif %}
       {% endfor %}
 

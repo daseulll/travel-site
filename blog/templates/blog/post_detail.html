@@ -9,32 +9,39 @@
     <p class="date">{{ post.published_date }}</p>
   {% else %}
     {% if post.author == user %}
-    <a class="btn btn-default" href="{% url 'blog:post_publish' post.pk %}">발행</a>
+    <a class="btn btn-outline-success" href="{% url 'blog:post_publish' post.pk %}">발행</a>
     <a class="btn btn-default content text-center" href="{% url 'blog:post_edit' post.pk %}">
-    <span class="glyphicon glyphicon-pencil">수정하기</span>
-  </a>
+      <i class="fas fa-pencil-alt"></i>
+    </a>
     <a class="btn btn-default" href="{% url 'blog:post_delete' post.pk %}">
-    <span class="glyphicon glyphicon-remove">삭제하기</span>
+    <i class="far fa-trash-alt"></i>
   </a>
     {% endif %}
   {% endif %}
+</div>
 
-{% for comment in post.comments.all %}
+<div class="comment">
+  {% for comment in post.comments.all %}
   {% if user.is_authenticated or comment.approved_comment %}
-    <div>
-      <div class="date">{{ comment.created_date }}</div>
+  <div>
+      {{ comment.author }} : {{ comment.text }}
+      <div class="date">{{ comment.created_date }}
         {% if not comment.approved_comment %}
           <a class="btn btn-default" href="{% url 'blog:comment_approve' comment.pk %}">
-            <span class="glyphicon glyphicon-remove">댓글승인</span></a>
+            <span class="glyphicon glyphicon-remove">
+              댓글승인
+            </span>
+          </a>
         {% endif %}
         <a class="btn btn-default" href="{% url 'blog:comment_remove' comment.pk %}">
-          <span class="glyphicon glyphicon-ok">삭제</span></a>
-        <strong>{{ comment.author }}</strong>
-        <p>{{ comment.text|linebreaks }}</p>
+            삭제
+        </a>
+      </div>
     </div>
   {% endif %}
 {% empty %}
-  <p>댓글이 아직 없습니다.</p>
+<hr />
+<p><small>댓글이 아직 없습니다.</small></p>
 {% endfor %}
 <a href="{% url 'blog:add_comment_to_post' post.pk %}">Add Comment</a>
 {% endblock %}

@@ -8,7 +8,7 @@ LOGIN_URL = "/signin/"
 
 def index(request):
     if request.method == "GET":
-        posts = Post.objects.all()
+        posts = Post.objects.filter(published_date__isnull=False)
     return render(request, "blog/index.html", {"posts" : posts})
 
 
@@ -57,7 +57,7 @@ def post_edit(request, pk):
 
 @login_required(login_url=LOGIN_URL)
 def post_draft_list(request):
-    draft_posts = Post.objects.filter(published_date__isnull=True).order_by('created_date')
+    draft_posts = Post.objects.filter(published_date__isnull=True, author=request.user).order_by('created_date')
     return render(request, "blog/post_draft_list.html", {
         "draft_posts": draft_posts,
     })

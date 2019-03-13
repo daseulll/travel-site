@@ -10,7 +10,7 @@
             {{ post.title }}<small> (댓글:{{ post.approved_comments.count }})</small>
         </a></h2>
     {% endfor %}        
-
+    <a href="{% url 'blog:post_list' %}">전체목록</a>
 </div>
 
 {% endblock %}
