@@ -1,10 +1,11 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import validate_email
+from .models import Profile
 
 class SignupForm(UserCreationForm):
+    name = forms.CharField(max_length=30)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -20,9 +21,16 @@ class SignupForm(UserCreationForm):
         user = super().save(commit=False)
         user.email = user.username
         user.save()
+
+        name = self.cleaned_data.get('name', None)
+        Profile.objects.create(user=user, name=name)
         return user
 
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('username', 'password1', 'password2')
+        fields = UserCreationForm.Meta.fields + ('name',)
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['name', 'bio']

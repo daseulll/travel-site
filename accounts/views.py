@@ -43,3 +43,14 @@ def signout(request):
 def profile(request):
     return render(request, 'accounts/profile.html', {})
 
+@login_required
+def profile_edit(request):
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+
+    
+    else:
+        form = ProfileForm()
+        return redirect('profile')
+
+    return render(request, 'accounts/profile_form.html', {})
