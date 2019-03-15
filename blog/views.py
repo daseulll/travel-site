@@ -24,7 +24,7 @@ def post_detail(request, pk):
     # post = get_object_or_404(Post, pk=pk)
     if request.method == "GET":
         post = Post.objects.get(pk=pk)
-    return render(request, "blog/post_detail.html", {'post':post})
+    return render(request, "blog/post_detail.html", {'post': post})
 
 @login_required(login_url=LOGIN_URL)
 def post_new(request):
@@ -71,7 +71,10 @@ def post_publish(request, pk):
 @login_required(login_url=LOGIN_URL)
 def post_delete(request, pk):
     post = Post.objects.get(pk=pk)
-    post.delete()
+    if post.author == request.user:
+
+        post.delete()
+        message.info
     return redirect('blog:post_list')
 
 def add_comment_to_post(request, pk):
@@ -92,10 +95,10 @@ def add_comment_to_post(request, pk):
 def comment_approve(request, pk):
     comment = Comment.objects.get(pk=pk)
     comment.approve()
-    return redirect('blog:post_detail', comment.pk)
+    return redirect('blog:post_list')
 
 @login_required
 def comment_remove(request, pk):
     comment = Comment.objects.get(pk=pk)
     comment.delete()
-    return redirect('blog:post_detail', comment.pk)
+    return redirect('blog:post_list', pk)
