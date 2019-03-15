@@ -1,0 +1,12 @@
+{% extends "accounts/layout.html "%}
+{% block body %}
+{% include "navbar.html" %}
+
+    <h2>{{ user.username }}의 정보 </h2>
+    <h4>프로필 객체 : {{ user.profile }}</h4>
+    <h4>email : {{ user.email|default:"&dash;" }}</h4>
+    <h4>내 소개 : {{ user.profile.bio|default:"&dash;" }}</h4>
+
+    <hr />
+
+{% endblock %}
