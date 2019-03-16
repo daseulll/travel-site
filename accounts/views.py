@@ -6,14 +6,12 @@ from .forms import SignupForm, ProfileForm
 def signup(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
-        
         if form.is_valid():
             user = form.save()
             user.save()
             login(request, user)
             next_url = request.GET.get('next') or 'root'
             return redirect(next_url)
-        
     else: 
         form = SignupForm()
 
@@ -22,7 +20,7 @@ def signup(request):
     })
 
 def signin(request):
-    ctx={}
+    ctx = {}
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -33,11 +31,11 @@ def signin(request):
             return redirect('root')
         else:
             ctx.update({"fail" : "가입되어 있지 않거나 비밀번호가 틀렸습니다."})
-    return render(request,"accounts/signin.html", ctx)
+    return render(request, "accounts/signin.html", ctx)
 
 def signout(request):
     logout(request)
-    return redirect ('root')
+    return redirect('root')
 
 @login_required
 def profile(request):
@@ -47,10 +45,8 @@ def profile(request):
 def profile_edit(request):
     if request.method == "POST":
         form = ProfileForm(request.POST)
-
-    
     else:
         form = ProfileForm()
         return redirect('profile')
 
-    return render(request, 'accounts/profile_form.html', {})
+    return render(request, 'accounts/profile_form.html', {"form":form})
