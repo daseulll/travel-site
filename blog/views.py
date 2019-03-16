@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.utils import timezone
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
 
@@ -41,18 +40,22 @@ def post_new(request):
 
 @login_required
 def post_edit(request, pk):
-    post = Post.objects.get(pk=pk)
     if request.method == "POST":
+        post = Post.objects.get(pk=pk)
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
+            form.save()
             return redirect('blog:post_detail', pk )
     else:
-        form = PostForm(instance=post)
+        post = Post.objects.get(pk=pk)
+        if post.author == request.user:
+            post = Post.objects.get(pk=pk)
+            form = PostForm(instance=post)
+            return render(request, "blog/post_edit.html", {'form' : form})
+        else:
+            return render(request, 'accounts/warning.html')
+            
 
-    return render(request, "blog/post_edit.html", {'form' : form})
 
 @login_required
 def post_draft_list(request):
@@ -64,15 +67,20 @@ def post_draft_list(request):
 @login_required
 def post_publish(request, pk):
     post = Post.objects.get(pk=pk)
-    post.publish()
+    if post.author == request.user:
+        post.publish()
+    else:
+        return render(request, 'accounts/warning.html')
+    
     return redirect('blog:post_detail', pk)
 
 @login_required
 def post_delete(request, pk):
     post = Post.objects.get(pk=pk)
     if post.author == request.user:
-
         post.delete()
+    else:
+        return render(request, 'accounts/warning.html')
     return redirect('blog:post_list')
 
 def add_comment_to_post(request, pk):
