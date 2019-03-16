@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import SignupForm, ProfileForm
 
-
 def signup(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
@@ -12,7 +11,8 @@ def signup(request):
             user = form.save()
             user.save()
             login(request, user)
-            return redirect('root')
+            next_url = request.GET.get('next') or 'root'
+            return redirect(next_url)
         
     else: 
         form = SignupForm()
