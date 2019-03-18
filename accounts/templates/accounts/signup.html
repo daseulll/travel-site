@@ -11,7 +11,7 @@
     <button class="btn btn-lg btn-primary btn-block my-2" type="submit">가입하기</button>
     {{ exist }}{{ e_exist }}{{ complete }}
     <p class="my-2">이미 가입하셨나요?
-      <a href="/signin/">
+      <a href="{% url 'signin' %}">
         <i class="far fa-hand-point-right"></i>
         로그인하기
       </a>

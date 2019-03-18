@@ -16,6 +16,6 @@
     <div style="font-size:13px">{{ fail }}</div>
   </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
-  <p style="margin-top:1rem;"><a href="{% url 'signup' %}">회원가입</a></p>
+  <p style="margin-top:1rem;"><a href="{% url 'signup' %}?next={{ request.path }}">회원가입</a></p>
 </form>
 {% endblock %}

@@ -46,4 +46,7 @@
 <p><small>댓글이 아직 없습니다.</small></p>
 {% endfor %}
 <a href="{% url 'blog:add_comment_to_post' post.pk %}">Add Comment</a>
+<hr />
+<a href="{% url 'blog:post_list' %}">글목록</a>
+
 {% endblock %}

@@ -28,7 +28,8 @@ def signin(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('root')
+            next_url = request.GET.get('next') or 'root'
+            return redirect(next_url)
         else:
             ctx.update({"fail" : "가입되어 있지 않거나 비밀번호가 틀렸습니다."})
     return render(request, "accounts/signin.html", ctx)
