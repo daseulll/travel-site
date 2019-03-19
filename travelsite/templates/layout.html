@@ -1,5 +1,5 @@
 <!doctype html>
-{% load static %}
+{% load static fresh_static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="{% static "css/lib/bootstrap-grid.min.css" %}">
     <link rel="stylesheet" href="{% static "css/lib/bootstrap-reboot.min.css" %}"> -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href='{% static "css/base.css" %}'>
-    <link rel="stylesheet" href='{% static "css/blog.css" %}'>
+    <link rel="stylesheet" href='{% fresh_static "css/base.css" %}'>
+    <link rel="stylesheet" href='{% fresh_static "css/blog.css" %}'>
     {% block extra_head %}{% endblock %}
 </head>
 <body>
   <div class="container">
-    <div class="col-sm-12">
+    <div class="row">
       {% block body %}{% endblock %}
       <hr />
       &copy; 2019. daseulll
