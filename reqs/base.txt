@@ -7,3 +7,4 @@ pylint-django==2.0.5
 jinja2==2.10
 django-jinja==2.4.1
 pillow
+django-imagekit
