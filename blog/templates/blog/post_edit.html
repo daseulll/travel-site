@@ -1,7 +1,7 @@
 {% extends 'blog/layout.html' %}
 {% block body %}
 {% include "navbar.html" %}
-<form method="POST" class="form-signin">
+<form method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   <div>
     <h1>New post</h1>

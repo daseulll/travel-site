@@ -14,15 +14,21 @@
         여행을 기록하세요.<br>
         더 많은 것을 보고 느끼고 추억하게 되실거에요.<br>
       </p>
+    </div>
       </div>
       <div class="row">
         <div class="col-12 col-md-7">
-          {% for post in posts  %}
-          <a href="{% url 'blog:post_detail' post.pk %}"><div>{{ post.title }}</div></a>
-          {% endfor %}
+          <hr />
+          <div class="list">
+            {% for post in posts  %}
+              {% if post.image_thumbnail %}
+              <img src="{{ post.image_thumbnail.url }}" class="post_image" width="100px" />
+              {% endif %}
+              <a href="{% url 'blog:post_detail' post.pk %}"><div>{{ post.title }}</div></a>
+            {% endfor %}
+          </div>
         </div>
       </div>
-    </div>
   </div>
 </div>
 

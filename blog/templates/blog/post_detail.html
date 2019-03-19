@@ -4,22 +4,27 @@
 
 <div class="col-10 content text-center">
   <div class="content-header"><h2>{{ post.title }}</h2></div>
-  <p>{{ post.text|linebreaksbr }}</p>
-  {% if post.published_date %}
-  <p class="date">{{ post.published_date }}</p>
-  {% else %}
-    {% if post.author == user %}
-    <a class="btn btn-outline-success" href="{% url 'blog:post_publish' post.pk %}">발행</a>
+  {% if post.image %}   
+    <img src="{{ post.image.url }}" class="post_image" width="200px" />
+  {% endif %}
+    <p>{{ post.text|linebreaksbr }}</p>
+  
+    {% if post.published_date %}
+      <p class="date">{{ post.published_date }}</p>
+    {% else %}
+      {% if post.author == user %}
+        <a class="btn btn-outline-success" href="{% url 'blog:post_publish' post.pk %}">발행</a>
+      {% endif %}
     {% endif %}
-  {% endif %}
-  {% if post.author == user %}
-  <a class="btn btn-default content text-center" href="{% url 'blog:post_edit' post.pk %}">
-    <i class="fas fa-pencil-alt"></i>
-  </a>
-  <a class="btn btn-default" href="{% url 'blog:post_delete' post.pk %}">
-  <i class="far fa-trash-alt"></i>
-</a>
-  {% endif %}
+  
+    {% if post.author == user %}
+      <a class="btn btn-default content text-center" href="{% url 'blog:post_edit' post.pk %}">
+        <i class="fas fa-pencil-alt"></i>
+      </a>
+      <a class="btn btn-default" href="{% url 'blog:post_delete' post.pk %}">
+       <i class="far fa-trash-alt"></i>
+     </a>
+    {% endif %}
 </div>
 
 <div class="comment">

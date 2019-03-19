@@ -1,6 +1,7 @@
 from django import forms
+from imagekit.models import ProcessedImageField
+from imagekit.processors import Thumbnail
 from .models import Post, Comment
-
 
 class PostForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -10,11 +11,14 @@ class PostForm(forms.ModelForm):
    
     class Meta:
         model = Post
-        fields = (
-            'title',
-            'text',
+        fields = ('title', 'text', 'image', 'image_thumbnail', )
+        image_thumbnail = ProcessedImageField(
+            spec_id='myapp:blog:image_thumbnail',
+            processors=[Thumbnail(120, 120)],
+            format='jPEG',
+            options={'qulity' : 100},
+            blank=True,
         )
-
 
 class CommentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
