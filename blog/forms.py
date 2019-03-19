@@ -11,7 +11,7 @@ class PostForm(forms.ModelForm):
    
     class Meta:
         model = Post
-        fields = ('title', 'text', 'image', )
+        fields = ('title', 'text', 'image', 'image_thumbnail', )
         image_thumbnail = ProcessedImageField(
             spec_id='blog:post:image_thumbnail',
             processors=[ResizeToFill(100, 50)],
@@ -24,7 +24,7 @@ class CommentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)   
         self.fields['author'].widget.attrs.update({'class':'form-control-sm'})
-        self.fields['text'].widget.attrs.update({'class':'form-control-sm'})
+        self.fields['text'].widget.attrs.update({'class':'form-control'})
    
     class Meta:
         model = Comment

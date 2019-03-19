@@ -13,6 +13,7 @@ class SignupForm(UserCreationForm):
         self.fields['username'].help_text = '이메일형식으로 입력해주세요.'
         self.fields['username'].label = 'E-mail'
         self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['name'].widget.attrs['class'] = 'form-control'
         self.fields['password1'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['class'] = 'form-control'
         self.fields['password1'].help_text = '비밀번호는 8자 이상이여야 하며,\n숫자만 사용할 수 없습니다.'

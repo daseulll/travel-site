@@ -1,29 +1,32 @@
 {% extends "blog/layout.html" %}
+{% block title %}내 글보기{% endblock %}
 {% block body %}
 {% include "navbar.html" %}
+<div class="col-sm-12">
   <div class="post">
     <h1 class="blog-header">나의 게시글</h1>
-      {% for post in posts %}
-        {% if post.published_date %}
-          <h3><a href="{% url 'blog:post_detail' post.pk %}">
-            {{ post.title }}<small> (댓글:{{ post.approved_comments.count }})</small>
-          </a></h3>
+    {% for post in posts %}
+      {% if post.published_date %}
+
+      <div class="row">
+        <div class="col-sm-3 list">
+        {% if post.image_thumbnail %}
+          <img src="{{ post.image_thumbnail.url }}" class="post_image" />
+        {% endif %}
+        </div>
+          <div class="col-sm-9 list">
+            <h3><a href="{% url 'blog:post_detail' post.pk %}">
+              {{ post.title }}<small> (댓글:{{ post.approved_comments.count }})</small>
+            </a></h3>
           <p class="date">{{ post.published_date }}</p>
-        {% else %}
-        <div class="post">
-          <h2>임시저장 글</h2>
-          <div>
-            <a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a>
-            <a class="btn btn-default" href="{% url 'blog:post_publish' post.pk %}">
-              발행
-            </a>
           </div>
         </div>
-        {% endif %}
-      {% endfor %}
+        {% endif %}    
+    {% endfor %}
 
       <a href="{% url 'blog:post_draft_list' %}" class="top-menu">
         <span class="glyphicon glyphicon-edit">임시저장목록</span>
       </a>
     </div>
+  </div>
 {% endblock %}

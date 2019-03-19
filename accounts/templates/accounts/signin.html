@@ -2,20 +2,22 @@
 {% block title %}index{% endblock %}
 {% block body %}
 {% include "navbar.html" %}
-<form method="post" action="" class="form-signin">
-  {% csrf_token %}
-  <h1 class="h3 mb-3 my-2 font-weight-normal">로그인</h1>
-  <label for="inputName" class="sr-only">Username</label>
-  <input type="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
-  <label for="inputPassword" class="sr-only">Password</label>
-  <input type="password" name="password" class="form-control" placeholder="Password" required="">
-  <div class="checkbox mb-3">
-    <label>
-      <input type="checkbox" value="remember-me"> Remember me
-    </label>
-    <div style="font-size:13px">{{ fail }}</div>
-  </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
-  <p style="margin-top:1rem;"><a href="{% url 'signup' %}?next={{ request.path }}">회원가입</a></p>
-</form>
+<div class="col-sm-12">
+  <form method="post" action="" class="form-signin">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 my-2 font-weight-normal">로그인</h1>
+    <label for="inputName" class="sr-only">Username</label>
+    <input type="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name="password" class="form-control" placeholder="Password" required="">
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+      <div style="font-size:13px">{{ fail }}</div>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+    <p style="margin-top:1rem;"><a href="{% url 'signup' %}?next={{ request.path }}">회원가입</a></p>
+  </form>
+</div>
 {% endblock %}

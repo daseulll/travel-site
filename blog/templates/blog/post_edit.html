@@ -1,12 +1,14 @@
 {% extends 'blog/layout.html' %}
 {% block body %}
 {% include "navbar.html" %}
-<form method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-  <div>
-    <h1>New post</h1>
-      {{ form.as_p }}
-    <button type="submit" class="save btn btn-outline-secondary">Save</button>
-  </div>
-</form>
-{% endblock %}
+<div class="col-sm-6 offset-sm-3">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+      <h1>New post</h1>
+        {{ form.as_p }}
+      <button type="submit" class="save btn btn-outline-secondary">Save</button>
+    </div>
+  </form>
+  {% endblock %}
+</div>
