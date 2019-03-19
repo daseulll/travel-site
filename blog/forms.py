@@ -1,6 +1,6 @@
 from django import forms
 from imagekit.models import ProcessedImageField
-from imagekit.processors import Thumbnail
+from imagekit.processors import ResizeToFill
 from .models import Post, Comment
 
 class PostForm(forms.ModelForm):
@@ -11,13 +11,13 @@ class PostForm(forms.ModelForm):
    
     class Meta:
         model = Post
-        fields = ('title', 'text', 'image', 'image_thumbnail', )
+        fields = ('title', 'text', 'image', )
         image_thumbnail = ProcessedImageField(
-            spec_id='myapp:blog:image_thumbnail',
-            processors=[Thumbnail(120, 120)],
-            format='jPEG',
-            options={'qulity' : 100},
-            blank=True,
+            spec_id='blog:post:image_thumbnail',
+            processors=[ResizeToFill(100, 50)],
+            format='JPEG',
+            options={'quality' : 80},
+            verbose_name="대표이미지",
         )
 
 class CommentForm(forms.ModelForm):

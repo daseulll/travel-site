@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from imagekit.models import ProcessedImageField
-from imagekit.processors import Thumbnail
+from imagekit.processors import ResizeToFill
 # Create your models here.
 
 class Post(models.Model):
@@ -16,9 +16,9 @@ class Post(models.Model):
         )
     image_thumbnail = ProcessedImageField(
         upload_to='blog/thumbnail',
-        processors=[Thumbnail(120, 120)],
-        format='jPEG',
-        options={'qulity' : 100},
+        processors=[ResizeToFill(100, 50)],
+        format='JPEG',
+        options={'quality' : 80},
         verbose_name="대표이미지",
         blank=True,
     )
