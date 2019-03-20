@@ -20,7 +20,7 @@
   <div class="row">
     {% for post in posts  %}
     <div class="col-sm-3">
-      <div class="card border-secondary mb-3" style="width: 15rem;">
+      <div class="card border-light mb-3" style="width: 15rem;">
         {% if post.image %}
           <img src="{{ post.image.url }}" class="card-img-top" style="width: 250px; height:200px;"/>
         {% endif %}
@@ -30,7 +30,6 @@
                 {{ post.title }}
               </a>
             </h5>
-            <p class="card-text">{{ post.text }}</p>
         </div>
       </div>
     </div>

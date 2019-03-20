@@ -12,14 +12,13 @@ class Post(models.Model):
     image = models.ImageField(
         upload_to='blog/image',
         blank=True,
-        verbose_name='Image',
+        verbose_name='대표이미지',
         )
     image_thumbnail = ProcessedImageField(
         upload_to='blog/thumbnail',
         processors=[ResizeToFill(100, 50)],
         format='JPEG',
         options={'quality' : 80},
-        verbose_name="대표이미지",
         blank=True,
     )
     created_date = models.DateTimeField(default=timezone.now)
