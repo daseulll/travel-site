@@ -21,7 +21,9 @@ class SignupForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = user.username
-        user.save()
+        if commit:
+            user.save()
+        return user
 
         name = self.cleaned_data.get('name', None)
         Profile.objects.create(user=user, name=name)
