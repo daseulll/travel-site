@@ -9,3 +9,4 @@ django-jinja==2.4.1
 pillow
 django-imagekit
 django-summernote
+python-dateutil
