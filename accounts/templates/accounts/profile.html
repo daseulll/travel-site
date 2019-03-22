@@ -8,5 +8,8 @@
     <h4>내 소개 : {{ user.profile.bio|default:"&dash;" }}</h4>
 
     <hr />
+    <a class="btn btn-default" href="{% url 'profile_edit' %}">
+      <i class="fas fa-pencil-alt">프로필수정</i>
+    </a>
 </div>
 {% endblock %}

@@ -1,7 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import SignupForm, ProfileForm
+from .models import Profile
 
 def signup(request):
     if request.method == "POST":
@@ -44,10 +46,14 @@ def profile(request):
 
 @login_required
 def profile_edit(request):
+    profile = Profile.objects.get(user=request.user)
+    print(profile)
     if request.method == "POST":
-        form = ProfileForm(request.POST)
-    else:
-        form = ProfileForm()
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
         return redirect('profile')
+    else:
+        form = ProfileForm(instance=profile)
 
     return render(request, 'accounts/profile_form.html', {"form":form})

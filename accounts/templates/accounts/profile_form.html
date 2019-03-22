@@ -1,11 +1,13 @@
 {% extends "accounts/layout.html "%}
-
-{% block content %}
+{% block body %}
+{% include "navbar.html" %}
+<div class="col-sm-12">
     <form action="" method="post">
         {% csrf_token %}
         <table>
             {{ form.as_table }}
         </table>
-        <input type="submit" />
+        <button class="btn btn-secondary" type="submit">수정하기</button>
     </form>
+</div>
 {% endblock %}

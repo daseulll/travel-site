@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import TextInput, Textarea
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import validate_email
@@ -21,10 +22,8 @@ class SignupForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = user.username
-        if commit:
-            user.save()
-        return user
-
+        user.save() # user가 존재해야 profile객체가 생성
+        
         name = self.cleaned_data.get('name', None)
         Profile.objects.create(user=user, name=name)
         return user
@@ -37,3 +36,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['name', 'bio']
+        widgets = {
+            'name': TextInput(attrs={'class':'form-control'}),
+            'bio' : Textarea(attrs={'class':'form-control'}),
+        } 
