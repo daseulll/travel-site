@@ -16,7 +16,7 @@ def on_post_save_for_user(sender, **kwargs):
             '가입환영이메일',
             'Travel 블로그에 가입을 환영합니다!',
             'nldaseul@gmail.com',
-            ['to@gmail.com'],
+            [user.email],
             fail_silently=False,
         )
 
